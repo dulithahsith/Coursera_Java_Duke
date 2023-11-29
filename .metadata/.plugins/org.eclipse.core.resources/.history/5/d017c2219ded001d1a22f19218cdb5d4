@@ -1,0 +1,17 @@
+import java.util.Scanner;
+
+
+public class dotcomtest{
+	public static void main(String args[]){
+	Scanner scan =new Scanner(System.in);
+	int guess=scan.nextInt();
+	if(guess==dotcomGame.getx()){
+		
+	}
+	}
+	}
+class dotcomGame {
+	private int x= (int)(Math.random()*7);
+	public int getx(){
+		return x;
+	}

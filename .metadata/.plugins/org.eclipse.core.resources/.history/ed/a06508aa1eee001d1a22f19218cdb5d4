@@ -1,0 +1,123 @@
+
+import java.util.ArrayList;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+public class Savings {
+    public static void main(String[] args) {
+        POS example = new POS();
+        example.run();
+    }
+}
+
+class POS {
+    public ArrayList<Bill> WaitingBills;
+    public String cashier;
+    public String branch;
+
+    // Constructor for the POS class
+    public POS() {
+        this.WaitingBills = new ArrayList<Bill>();
+        this.cashier = "Sahan";
+        this.branch = "Katubedda";
+    }
+
+    // Method to run the POS system
+    public void run() {
+        while (true) {
+            Bill bill = this.setBill();
+            String input = this.getresponse("Any more bills? (Y/N)");
+            if (input=="N") {
+                break;
+            }
+        }
+        public Bill setBill() {
+            ArrayList<Item> items = new ArrayList<Item>();
+            double Discount = 0;
+            double Price = 0;
+
+            while (true) {
+                Item item = this.getItemDetails();
+
+                if (item == null) {
+                    break;
+                }
+
+                double discount = item.discount;
+                double unitPrice = item.price * (1 - discount);
+                double netPrice = unitPrice * item.weight;
+
+                items.add(item);
+                Discount += item.discount * item.price * item.weight;
+                Price += netPrice;
+
+                String input = this.getresponse("Add new item? (Y/N)");
+
+                if (input=="N") {
+                    break;
+                }
+            }
+    }
+        
+        public boolean isItem(int code){
+        	if (code<100){
+        		return true;
+        	}
+        }
+        public Item getItemDetails() {
+            try {
+                InputStreamReader read = new InputStreamReader(System.in);
+                BufferedReader buffer = new BufferedReader(read);
+
+                boolean absent = false;
+                Item item = null;
+
+                while (!absent) {
+                    System.out.print("Enter code: ");
+                    String code = buffer.readLine();
+                    if (isItem(Integer.parseInt(code))) {
+                        String itemName = "item"+Math.random()*100;
+                        double price = Math.random()*100;
+                        double weight = Math.random()*100;
+                        String manufacturingDate = "12/12/12";
+                        String expiryDate = "25/12/12";
+                        String manufacturerName = "Manufacturer"+Math.random()*10;
+                        double discount = 12;
+
+                        item = new Item(itemCode, itemName, price, weight,
+                                               manufacturingDate, expiryDate, manufacturerName, discount);
+                        absent = true;
+                    } else {
+                        throw new ItemCodeNotFoundException("Item not found");
+                    }
+                }
+
+                buffer.close();
+                read.close();
+                return item;
+            } catch (ItemCodeNotFoundException ex) {
+                System.out.println(ex.getMessage());
+                return null;
+            }
+        }
+        public String getresponse(String text) {
+            try {
+                InputStreamReader read = new InputStreamReader(System.in);
+                BufferedReader buffer = new BufferedReader(read);
+
+                System.out.print(text);
+                String input = buffer.readLine();
+
+                buffer.close();
+                read.close();
+                return input;
+            } catch (IOException ex) {
+                System.out.println("Error");
+                return "";
+            }
+        }
+}
+    
+
+    

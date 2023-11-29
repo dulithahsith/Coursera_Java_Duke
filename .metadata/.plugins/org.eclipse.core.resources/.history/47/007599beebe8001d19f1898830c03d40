@@ -1,0 +1,29 @@
+import java.util.ArrayList;
+import java.util.List;
+public class Part2 {
+	public static void main(String[] args) {
+		Part2 pr=new Part2();
+		int t=pr.findGene("AAATGCCCTAACTAGATTAAGAAACC");
+		System.out.println((pr.findstopCodon("AAATGCCCTAACTAGATTAAGAAACC",t,"TAA")));
+	
+	}
+	public int findstopCodon(String dna,int i, String stopCodon){
+		String x=dna;
+		int j=0;
+		int k=i;
+		while((j-i)!=-1){
+			x=dna.substring(k);
+			j=x.indexOf("TAA")+k;
+			if((j-i+3)%3==0){
+				break;
+			}
+			k=j;
+		}
+		return j;
+	}
+	public int findGene(String dna){
+		return dna.indexOf("ATG");
+	
+	}
+
+}

@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+
+public class dotcomtest{
+	public static void main(String args[]){
+	Scanner scan =new Scanner(System.in);
+	int guess=scan.nextInt();
+	dotcomGame game=new dotcomGame();
+	while(game.getcount()!=3){
+		System.out.println(game.checkwin(guess));
+	}
+	
+	}
+}
+class dotcomGame {
+	private int x= (int)(Math.random()*7);
+	private boolean didwin;
+	public int count;
+	public int getx(){
+		return x;
+	}
+	public int getcount(){
+		return count;
+	}
+	public boolean getdidwin(){
+		return didwin;
+	}
+	public String checkwin(int guess){
+		if(guess!=x){
+			return "miss";
+		}
+		if(guess==x || guess==x+1 || guess==x+2){
+			count+=1;
+			if(count==3){return "Ship sunk";}
+			return "hit";
+		}
+		return "";
+
+	}
+}

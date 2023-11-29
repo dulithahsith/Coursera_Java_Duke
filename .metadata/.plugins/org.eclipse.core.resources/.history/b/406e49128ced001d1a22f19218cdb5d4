@@ -1,0 +1,20 @@
+public class GuessGame {
+	int x=(int)(Math.random() * 10);
+}
+class player{
+	int x=(int)(Math.random() * 10);
+}
+class simulate{
+	public void main(String args[]){
+	GuessGame game=new GuessGame();
+	player player1= new player();
+	player player2= new player();
+	player player3= new player();
+	if(player1.x==game.x){
+		System.out.println("player1 won");}
+	if(player2.x==game.x){
+		System.out.println("player1 won");}
+	if(player3.x==game.x){
+		System.out.println("player1 won");}
+}
+}

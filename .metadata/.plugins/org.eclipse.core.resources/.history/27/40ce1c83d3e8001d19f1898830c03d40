@@ -1,0 +1,25 @@
+public class Part1 {
+	public static void main(String[] args){
+		Part1 pr=new Part1();
+		pr.testSimpleGene();
+	}
+	public String findSimpleGene(String dna){
+		int i=dna.indexOf("ATG");
+		if (i==-1){
+			return "";}
+		String x=dna.substring(i);
+		int j=x.indexOf("TAA");
+		if (j==-1){
+			return "";
+			}
+		int mul=(j-i+3)%3;
+		if(mul==0){
+			return dna.substring(i+3, j);
+		}
+		return "";
+
+	}
+	public void testSimpleGene(){
+		
+	}
+}

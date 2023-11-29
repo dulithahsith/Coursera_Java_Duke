@@ -1,0 +1,8 @@
+INDEX VERSION 1.126+C:\Users\Dulitha Hasith\Desktop\Sem 2\Coursera\.metadata\.plugins\org.eclipse.jdt.core
+2296455461.index
+431416951.index
+986353681.index
+2072507613.index
+2056620356.index
+1235227186.index
+1725203770.index

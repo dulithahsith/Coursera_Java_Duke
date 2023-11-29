@@ -1,0 +1,206 @@
+
+import java.util.ArrayList;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+public class Savings {
+    public static void main(String[] args) {
+        POS example = new POS();
+        example.run();
+    }
+}
+class ItemCodeNotFoundException extends Exception {
+
+	public ItemCodeNotFoundException(String text)
+	{
+        super(text);
+    }
+}
+class Item implements Serializable {
+    public String code;
+    public String name;
+    public double price;
+    public double weight;
+    public String mfd;
+    public String exp;
+    public String mfName;
+    public double disc;
+
+    // Constructor for the GroceryItem class
+    public Item(String code, String name, double price,
+                       double weight, String mfd,
+                       String exp, String mfName, double disc) {
+        this.code = code;
+        this.name = name;
+        this.price = price;
+        this.weight = weight;
+        this.mfd =mfd;
+        this.exp = exp;
+        this.mfName = mfName;
+        this.disc = disc;
+    }
+}
+class Bill implements Serializable {
+    public String name;
+    public String branch;
+    public String customer;
+    public ArrayList<Item> items;
+    public double Discount;
+    public double Price;
+    public String date;
+
+    public Bill(String name, String branch, String customer,
+                ArrayList<Item> items, double Discount, double Price) {
+        this.name = name;
+        this.branch = branch;
+        this.customer = customer;
+        this.items = items;
+        this.Discount = Discount;
+        this.Price = Price;
+        this.date = "14/12/12";
+    }
+
+    // Print the bill
+    public void printBill() {
+        System.out.println("Supermarket"+branch);
+        System.out.println("Date: " + date);
+        System.out.println("Cashier: " + name);
+        System.out.println("Customer: " + customer);
+        System.out.printf("%-20s %-15s %-15s %-20s %-15s\n", "code", "name",
+                          "Per unit", "Quantity", "Net Price");
+    
+        for (Item item : items) {
+            double unitP = item.price * (1 - item.disc);
+            double netPrice = unitP * item.weight;
+
+            System.out.printf("%-15s %-15s %-15.2f %-15.2f %.2f\n", item.code,
+                              item.name, unitP, item.weight, netPrice);
+        }
+
+        System.out.printf("%-40s %.3f\n", "Discount:", Discount);
+        System.out.printf("%-40s %.3f\n", "Price:", Price);
+    }
+}
+
+class POS {
+    public ArrayList<Bill> WaitingBills;
+    public String cashier;
+    public String branch;
+
+    // Constructor for the POS class
+    public POS() {
+        this.WaitingBills = new ArrayList<Bill>();
+        this.cashier = "Sahan";
+        this.branch = "Katubedda";
+    }
+
+    // Method to run the POS system
+    public void run() {
+        while (true) {
+            Bill bill = this.setBill();
+            String input = this.getresponse("Any more bills? (Y/N)");
+            if (input.equals("N")) { // use equals() method to compare strings
+                break;
+            }
+        }
+    }
+
+    public Bill setBill() {
+        ArrayList<Item> items = new ArrayList<Item>();
+        double Discount = 0;
+        double Price = 0;
+
+        while (true) {
+            Item item = this.getItemDetails();
+
+            if (item == null) {
+                break;
+            }
+
+            double disc = item.disc;
+            double perunit = item.price * (1 - disc);
+            double net = perunit * item.weight;
+
+            items.add(item);
+            Discount += item.disc * item.price * item.weight;
+            Price += net;
+
+            String input = this.getresponse("Add new item? (Y/N)");
+
+            if (input.equals("N")) { // use equals() method to compare strings
+                break;
+            }
+        }
+
+        Bill bill = new Bill(cashier, branch, "Customer", items, Discount, Price);
+        bill.printBill();
+        return bill;
+    }
+
+    public boolean isItem(int code) {
+        if (code < 100) {
+            return true;
+        }
+        return false; // add missing return statement
+    }
+
+    public Item getItemDetails() {
+        try {
+            InputStreamReader read = new InputStreamReader(System.in);
+            BufferedReader buffer = new BufferedReader(read);
+
+            boolean absent = false;
+            Item item = null;
+
+            while (!absent) {
+                System.out.print("Enter code: ");
+                String code = buffer.readLine();
+                if (isItem(Integer.parseInt(code))) {
+                    String name = "item" + Math.random() * 3;
+                    double price = Math.random() * 100;
+                    double weight = Math.random() * 100;
+                    String mfd = "12/12/12";
+                    String exp = "25/12/12";
+                    String mfName = "Manufacturer" + Math.random() * 10;
+                    double disc = 12;
+
+                    item = new Item(code, name, price, weight,
+                            mfd, exp, mfName, disc);
+                    absent = true;
+                } else {
+                    throw new ItemCodeNotFoundException("Item not found");
+                }
+            }
+
+            buffer.close();
+            read.close();
+            return item;
+        } catch (IOException ex) {
+            System.out.println("Error");
+            return null;
+        } catch (ItemCodeNotFoundException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    public String getresponse(String text) {
+        try {
+            InputStreamReader read = new InputStreamReader(System.in);
+            BufferedReader buffer = new BufferedReader(read);
+
+            System.out.print(text);
+            String input = buffer.readLine();
+
+            buffer.close();
+            read.close();
+            return input;
+        } catch (IOException ex) {
+            System.out.println("Error");
+            return "";
+        }
+    }
+}
+
+    

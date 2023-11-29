@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+
+public class dotcomtest{
+	public static void main(String args[]){
+		dotcomGame game=new dotcomGame();
+		int loc=game.getx();
+		System.out.println(loc);
+		String string="miss";
+		while(string!="Ship sunk"){
+			Scanner scan =new Scanner(System.in);
+			int guess=scan.nextInt();
+			string=game.checkwin(guess,loc);
+			System.out.println(string);
+		}
+	
+	}
+}
+class dotcomGame {
+	private int x= (int)(Math.random()*7);
+	private boolean didwin;
+	public int count=0;
+	public int getx(){
+		return x;
+	}
+	public int getcount(){
+		return count;
+	}
+	public boolean getdidwin(){
+		return didwin;
+	}
+	public String checkwin(int guess,int loc){
+		if(guess==loc || guess==loc+1  || guess==loc+2 ){
+			count+=1;
+			if(count==3){return "Ship sunk";}
+			return "hit";
+		}
+		else{
+			return "miss";
+		}
+
+	}
+}

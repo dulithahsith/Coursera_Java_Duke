@@ -1,0 +1,23 @@
+public class Part1 {
+	public static void main(String[] args){
+		Part1 pr=new Part1();
+		pr.findSimpleGene("AAATGCCCTAACTAGATTAAGAAACC");
+	}
+	public String findSimpleGene(String dna){
+		String fin = null;
+		int i=dna.indexOf("ATG");
+		if (i==-1){
+			fin="";}
+		String x=dna.substring(i);
+		int j=x.indexOf("TAA");
+		if (j==-1){
+			fin="";
+			}
+		int mul=(j-i-3)%3;
+		if(mul==0){
+			fin = dna.substring(i+3, j);
+		}
+		return fin;
+
+	}
+}

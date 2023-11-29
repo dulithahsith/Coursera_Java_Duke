@@ -1,0 +1,25 @@
+
+public class Part2 {
+	public static void main(String[] args) {
+		Part2 pr=new Part2();
+		int t=pr.findGene("AAATGCCCTAACTAGATTAAGAAACC");
+		System.out.println((pr.findstopCodon("AAATGCCCTAACTAGATTAAGAAACC",t,"TAG")));
+	}
+	public int findstopCodon(String dna,int i, String stopCodon){
+		int l=i;
+		int t=dna.indexOf("TAG",l);
+		while(t!=-1){
+			l=t;
+			if((t-i+3)%3==0){
+				break;
+			}
+			t=dna.indexOf("TAG",l+1);
+		}
+		return t;
+	}
+	public int findGene(String dna){
+		return dna.indexOf("ATG");
+	
+	}
+
+}

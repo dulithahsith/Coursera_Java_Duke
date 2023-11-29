@@ -1,0 +1,12 @@
+import java.util.Scanner;
+
+
+public class dotcomtest{
+	public static void main(String args[]){
+	Scanner scan =new Scanner(System.in);
+	int guess=scan.nextInt();
+	if(guess==dotcomGame.getx()){
+		
+	}
+	}
+}
