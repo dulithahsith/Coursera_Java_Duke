@@ -1,0 +1,21 @@
+{
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    "java.compile.nullAnalysis.nonnull": [
+    
+
+
+        "javax.annotation.Nonnull",
+        "org.eclipse.jdt.annotation.NonNull",
+        "org.springframework.lang.NonNull"
+    ],
+    "java.import.maven.disableTestClasspathFlag": false,
+    "java.compile.nullAnalysis.nonnullbydefault": [
+
+        "javax.annotation.ParametersAreNonnullByDefault",
+        "org.eclipse.jdt.annotation.NonNullByDefault",
+        "org.springframework.lang.NonNullApi"
+    ],
+    "java.project.dependencies": [
+        "lib/courserajava.jar"
+    ]
+}

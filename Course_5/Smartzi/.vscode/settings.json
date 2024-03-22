@@ -1,0 +1,6 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "f:\\Downloads\\commons-csv-1.10.0-bin\\commons-csv-1.10.0\\commons-csv-1.10.0.jar"
+  ]
+}
